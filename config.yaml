@@ -1,0 +1,79 @@
+db:
+  uri: "mongodb://localhost:27018"
+  name: "IR_MAI"
+  docs_collection: "labs_doc"
+  queue_collection: "labs_queue"
+
+logic:
+  user_agent: "Nikita Saraykin"
+  delay_seconds: 0.3
+  timeout_seconds: 20
+  max_retries: 3
+  threads: 7
+  lease_seconds: 120
+
+  wikipedia_science_target: 20000
+  wikibooks_science_target: 11000
+
+sources:
+
+  - name: "wikipedia_ru_science"
+    priority: 1
+    seed:
+      type: "mediawiki_api_category"
+      api_url: "https://ru.wikipedia.org/w/api.php"
+
+
+      categories:
+        - "Категория:Наука"
+        - "Категория:Естественные науки"
+        - "Категория:Физика"
+        - "Категория:Математика"
+        - "Категория:Информатика"
+        - "Категория:Кибернетика"
+        - "Категория:Теория информации"
+        - "Категория:Алгоритмы"
+        - "Категория:Искусственный интеллект"
+        - "Категория:Машинное обучение"
+        - "Категория:Статистика"
+        - "Категория:Теория вероятностей"
+        - "Категория:Моделирование"
+        - "Категория:Системный анализ"
+
+      params:
+        cmnamespace: 0
+        cmlimit: 200
+
+    url_builder:
+      base: "https://ru.wikipedia.org/wiki/"
+
+
+
+  - name: "wikibooks_ru_science"
+    priority: 2
+    seed:
+      type: "mediawiki_api_category"
+      api_url: "https://ru.wikibooks.org/w/api.php"
+
+      categories:
+        - "Категория:Наука"
+        - "Категория:Математика"
+        - "Категория:Физика"
+        - "Категория:Информатика"
+        - "Категория:Программирование"
+        - "Категория:Алгоритмы"
+        - "Категория:Дискретная математика"
+        - "Категория:Теория графов"
+        - "Категория:Искусственный интеллект"
+        - "Категория:Машинное обучение"
+        - "Категория:Анализ данных"
+        - "Категория:Статистика"
+        - "Категория:Вероятность и статистика"
+        - "Категория:Численные методы"
+
+      params:
+        cmnamespace: 0
+        cmlimit: 200
+
+    url_builder:
+      base: "https://ru.wikibooks.org/wiki/"
